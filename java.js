@@ -1,3 +1,24 @@
+const buttons = document.getElementById('buttons');
+const choices = ['Rock', 'Paper', 'Scissors'];
+const buttonContainer = document.createElement("div");
+const text = document.createElement('p');
+
+buttons.appendChild(buttonContainer);
+buttons.appendChild(text);
+
+choices.forEach(choice => {
+    const button = document.createElement('button');
+    button.textContent = choice;
+    button.addEventListener('click', () => getHumanChoice(choice));
+    buttonContainer.appendChild(button);
+});
+
+
+
+
+
+
+
 
 let getComputerChoice = () => {
     const choices = ["rock", "paper", "scissors"];
@@ -5,10 +26,9 @@ let getComputerChoice = () => {
     return choices[randomNumber];
 }
 
-let getHumanChoice = () => {
-    let humanChoice = prompt("Rock, Paper, Scissors?");
-    return humanChoice.toLowerCase().trim();
-}
+ function getHumanChoice(choice) {
+    playRound(`${choice}`);
+};
 
 let humanScore = 0;
 let computerScore = 0;
@@ -40,15 +60,15 @@ const computerSelection = getComputerChoice();
 function playGame(humanSelection, computerSelection) {
     let roundCount = 1;
     playRound(humanSelection, computerSelection);
-    while(roundCount < 5) {
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
-        roundCount++;
-    }
+     while(roundCount < 5) {
+         humanSelection = getHumanChoice();
+         computerSelection = getComputerChoice();
+         playRound(humanSelection, computerSelection);
+         roundCount++;
+     }
     let winner = humanScore > computerScore ? "You" : humanScore === computerScore ? "Draw" : "The Computer";
     console.log(`You won ${humanScore}/5 rounds!`);
     console.log(winner === "Draw" ? "Draw, nobody won!" : `${winner} won the game!`);
 }
 
-playGame();
+//playGame();
