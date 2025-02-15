@@ -1,74 +1,83 @@
 const buttons = document.getElementById('buttons');
 const choices = ['Rock', 'Paper', 'Scissors'];
 const buttonContainer = document.createElement("div");
-const text = document.createElement('p');
+const resultText = document.createElement('p');
+const scoreText = document.createElement('p');
+const resultScore = document.createElement('p');
+const winnerGame = document.createElement('p');
+let humanScore = 0;
+let computerScore = 0;
+let gameOver = false;
 
 buttons.appendChild(buttonContainer);
-buttons.appendChild(text);
+buttons.appendChild(resultText);
+buttons.appendChild(scoreText);
+buttons.appendChild(winnerGame);
+
 
 choices.forEach(choice => {
     const button = document.createElement('button');
     button.textContent = choice;
-    button.addEventListener('click', () => getHumanChoice(choice));
+    button.addEventListener('click', () => {
+        const playerSelection = choice;
+        const computerSelection = getComputerChoice();
+        playRound(playerSelection, computerSelection);
+    });
     buttonContainer.appendChild(button);
 });
 
-
-
-
-
-
-
-
-let getComputerChoice = () => {
-    const choices = ["rock", "paper", "scissors"];
-    let randomNumber = Math.floor(Math.random() * 3);
+function getComputerChoice() {
+    let randomNumber = Math.floor(Math.random() * choices.length);
     return choices[randomNumber];
 }
 
- function getHumanChoice(choice) {
-    playRound(`${choice}`);
-};
-
-let humanScore = 0;
-let computerScore = 0;
-
-
-
-let playRound = (humanChoice, computerChoice) => {
-    if(humanChoice === computerChoice) {
-        console.log("Draw!");
-    } else if(humanChoice === "rock" && computerChoice === "scissors"){
+function playRound(playerSelection, computerSelection) {
+    let result = '';
+    if(playerSelection === computerSelection) {
+        result = `Draw! Both chose ${playerSelection}`;
+    } else if(
+        (playerSelection === "Rock" && computerSelection === "Scissors") ||
+        (playerSelection === "Paper" && computerSelection === "Rock") ||
+        (playerSelection === "Scissors" && computerSelection === "Paper")
+    ) {
         humanScore++;
-        console.log("You won this round!");
-    } else if(humanChoice === "paper" && computerChoice === "rock") {
-        humanScore++;
-        console.log("You won this round!");
-    } else if(humanChoice === "scissors" && computerChoice === "paper") {
-        humanScore++;
-        console.log("You won this round!");
+        result = `You Win! ${playerSelection} beats ${computerSelection}`;
     } else {
         computerScore++;
-        console.log("The Computer won this round!");
+        result = `You lose! ${computerSelection} beats ${playerSelection}.`;
     }
-    return;
+    resultText.textContent = result;
+    scoreText.textContent = `Score - Player: ${humanScore} | Computer: ${computerScore}`;
+    checkGameOver();
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
 
-function playGame(humanSelection, computerSelection) {
-    let roundCount = 1;
-    playRound(humanSelection, computerSelection);
-     while(roundCount < 5) {
-         humanSelection = getHumanChoice();
-         computerSelection = getComputerChoice();
-         playRound(humanSelection, computerSelection);
-         roundCount++;
-     }
-    let winner = humanScore > computerScore ? "You" : humanScore === computerScore ? "Draw" : "The Computer";
-    console.log(`You won ${humanScore}/5 rounds!`);
-    console.log(winner === "Draw" ? "Draw, nobody won!" : `${winner} won the game!`);
+function checkGameOver() {
+    if (humanScore === 5) {
+        winnerGame.textContent = "Congratulations! You have won the game!"
+        gameOver = true;
+
+    } else if (computerScore === 5) {
+        winnerGame.textContent = "Game over! The computer wins!";
+        gameOver = true;
+        }
+        if (gameOver) {
+            resetButton.style.display = 'block';
+        }     
 }
 
-//playGame();
+const resetButton = document.createElement('button');
+resetButton.textContent = 'Play Again?';
+resetButton.style.display = 'none';
+resetButton.addEventListener('click', resetGame);
+buttons.appendChild(resetButton);
+
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    gameOver = false;
+    resultText.textContent = '';
+    winnerGame.textContent = '';
+    scoreText.textContent = 'Score - Player: 0 | Computer: 0';
+    resetButton.style.display = 'none';
+}
