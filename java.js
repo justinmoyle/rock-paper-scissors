@@ -1,6 +1,10 @@
-const buttons = document.getElementById('buttons');
+const rpsContain = document.getElementById('rpsContain');
 const choices = ['Rock', 'Paper', 'Scissors'];
 const buttonContainer = document.createElement("div");
+const gameName = document.createElement('h1');
+gameName.textContent = 'Rock, Paper or Scissors'
+const subTitle = document.createElement('h3');
+subTitle.textContent = 'Choose your pick to begin'
 const resultText = document.createElement('p');
 const scoreText = document.createElement('p');
 const resultScore = document.createElement('p');
@@ -9,10 +13,12 @@ let humanScore = 0;
 let computerScore = 0;
 let gameOver = false;
 
-buttons.appendChild(buttonContainer);
-buttons.appendChild(resultText);
-buttons.appendChild(scoreText);
-buttons.appendChild(winnerGame);
+rpsContain.appendChild(gameName);
+rpsContain.appendChild(subTitle);
+rpsContain.appendChild(buttonContainer);
+rpsContain.appendChild(resultText);
+rpsContain.appendChild(scoreText);
+rpsContain.appendChild(winnerGame);
 
 
 choices.forEach(choice => {
@@ -51,7 +57,6 @@ function playRound(playerSelection, computerSelection) {
     checkGameOver();
 }
 
-
 function checkGameOver() {
     if (humanScore === 5) {
         winnerGame.textContent = "Congratulations! You have won the game!"
@@ -70,7 +75,7 @@ const resetButton = document.createElement('button');
 resetButton.textContent = 'Play Again?';
 resetButton.style.display = 'none';
 resetButton.addEventListener('click', resetGame);
-buttons.appendChild(resetButton);
+rpsContain.appendChild(resetButton);
 
 function resetGame() {
     humanScore = 0;
