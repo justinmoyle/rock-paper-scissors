@@ -56,7 +56,7 @@ function playRound(playerSelection, computerSelection) {
         result = `You lose! ${computerSelection} beats ${playerSelection}.`;
     }
     resultText.textContent = result;
-    scoreText.textContent = `Score - Player: ${humanScore} | Computer: ${computerScore}`;
+    scoreText.textContent = `Player: ${humanScore}    |    Computer: ${computerScore}`;
     checkGameOver();
 }
 
@@ -71,6 +71,7 @@ function checkGameOver() {
         }
         if (gameOver) {
             resetButton.style.display = 'block';
+
         }     
 }
 
@@ -86,6 +87,6 @@ function resetGame() {
     gameOver = false;
     resultText.textContent = '';
     winnerGame.textContent = '';
-    scoreText.textContent = 'Score - Player: 0 | Computer: 0';
+    scoreText.textContent = 'Player: 0 | Computer: 0';
     resetButton.style.display = 'none';
 }
