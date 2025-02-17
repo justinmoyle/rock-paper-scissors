@@ -1,0 +1,39 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background-color: aquamarine;
+    color: white;
+}
+
+button {
+    width: 150px;
+    height: 150px;
+    margin: 15px;
+    background-color: white;
+    border-radius: 25px;
+    border: 0;
+}
+
+button:hover {
+    opacity: 50%;
+}
+
+h1 {
+    font-size: 60px;
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+p {
+    font-size: 30px;
+    margin: 15px;
+}

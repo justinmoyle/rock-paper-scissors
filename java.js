@@ -9,6 +9,9 @@ const resultText = document.createElement('p');
 const scoreText = document.createElement('p');
 const resultScore = document.createElement('p');
 const winnerGame = document.createElement('p');
+
+
+
 let humanScore = 0;
 let computerScore = 0;
 let gameOver = false;
